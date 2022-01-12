@@ -11,7 +11,17 @@ class App extends React.Component {
     followers: [],
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    axios
+      .get(`https://api.github.com/users/${this.state.currentUser}`)
+      .then((resp) => {
+        console.log(resp.data);
+        this.setState({
+          ...this.state,
+          user: resp.data,
+        });
+      });
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.user !== prevState.user) {
@@ -42,7 +52,7 @@ class App extends React.Component {
         console.log(resp.data);
         this.setState({
           ...this.state,
-          currentUser: resp.data,
+          user: resp.data,
         });
       });
   };
@@ -59,7 +69,9 @@ class App extends React.Component {
           <button>Search</button>
         </form>
         <div>
-          <User user={this.state.currentUser} />
+          <User user={this.state.user} />
+        </div>
+        <div>
           <FollowerList followers={this.state.followers} />
         </div>
       </div>

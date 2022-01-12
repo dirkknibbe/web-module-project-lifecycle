@@ -6,7 +6,7 @@ class Follower extends React.Component {
     return (
       <div className="follower">
         <img width="200px" src={follower.avatar_url} />
-        <p>{follower.name}</p>
+        <a>{follower.login}</a>
       </div>
     );
   }
